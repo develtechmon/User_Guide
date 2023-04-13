@@ -16,7 +16,7 @@ VCC     ---  VCC
 ```
 SERIALn_PROTOCOL = 32 'n' is serial number of UART in ArduPilot. In my case i'm using SERIAL1_PROTOCOL
 SERIAL1_BAUD = 115
-RNGFND_TYPE = 32
+RNGFND1_TYPE = 32
 FLOW_TYPE = 7
 
 Below is setting for Lidar in this module
