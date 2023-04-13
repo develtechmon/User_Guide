@@ -1,6 +1,6 @@
 # Getting Started
 
-## This userguide explain how to install Media Pip from Source into Jetson Nano
+## This userguide explain how to install Media Pipe from Source into Jetson Nano
 
 1. The starting point is a flashed new SD card with Jetpack 4.6
 
