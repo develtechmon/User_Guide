@@ -1,49 +1,29 @@
 # Getting Started
 
-## This userguide explain how to install Gazebo used for Drone simulation in Ubuntu 18
+## This userguide explain how to migrate python package to different python version to ensure neccessary package is installed
 
-1. To start refer to this [link](https://github.com/punkypankaj/Installing-Gazebo-and-ArduPilot-Plugin/blob/main/Docs.md)
-2. Open new terminal and use below command to install `Gazebo`
+## Windows
+1. To list down the python version use below command
 ```
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-sudo apt update
-sudo apt install gazebo9 libgazebo9-dev
-gazebo --verbose
+a. py -3.9 --version
+b. py -3.11 --version
 ```
 
-3. After installation is complete. We will need to install Arducopter Plugin as follow
+2. To list the pip based on different python version
 ```
-git clone https://github.com/khancyr/ardupilot_gazebo
-cd ardupilot_gazebo
-mkdir build
-cd build
-cmake ..
-make -j4
-sudo make install
-echo 'source /usr/share/gazebo/setup.sh' >> ~/.bashrc
-echo 'export GAZEBO_MODEL_PATH=~/ardupilot_gazebo/models' >> ~/.bashrc
-. ~/.bashrc
+a. py -3.9 -m pip list
+b. py -3.11 -m pip list
 ```
 
-4. To run `Gazebo` environment open new terminal and run below command
+3. To migrate old pip package to new pip environment assuming that my python version change from 3.9 to 3.11. We will need to export `requirement.txt`
+that consist of all python libraries
 ```
-gazebo --verbose ~/ardupilot_gazebo/worlds/iris_arducopter_runway.world 
-```
-
-5. To launch `SITL` environment open new terminal and run below command
-```
-cd ~/ardupilot/ArduCopter/
-sim_vehicle.py -v ArduCopter -f gazebo-iris --console
+a. py -3.9 -m pip freeze > requirements.txt
+b. cp ./requirements.txt /path/to/new_project
 ```
 
-6. You can also forward RPI or Jetson Nano IP address to connect with `SITL` using below command
+4. To install `requirements.txt` from `python 3.9` to `python 3.11` run below command
 ```
-sim_vehicle.py -v ArduCopter -f gazebo-iris --console --out 192.168.195.204:14553
-```
-7. From companion computer run `connect_drone.py` script from `Drone_kit` repository to test the connection. Before run, please use below connection_string which is referring to RPI IP address
-```
-connection_string = '192.168.195.204:14553'
+py -3.11 -m pip install -r ./requirements.txt
 ```
 
-8. The script should output `virtual copter is ready`
