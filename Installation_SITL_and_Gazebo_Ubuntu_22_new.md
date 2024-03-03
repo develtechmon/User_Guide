@@ -49,3 +49,65 @@ For my setup, i'm using below spec:
   ```
   Python 3.10.12
   ```
+
+### 1. Install python 2.7 package and PIP
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python2
+python2 --version
+```
+
+```
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+sudo python get-pip.py
+pip --version
+```
+
+Once completed run velow command to to determine if installed pip is refer to python 2.7 using below command
+```
+whereis pip
+```
+
+### 2. Install python 3 pip
+```
+sudo apt-get update
+sudo apt install python3-pip
+```
+
+Once completed run python to check if pip installed pip is refer to python 3.10 using below command
+```
+whereis pip
+```
+
+### 3. Install Ardupilot and relevant packages
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git
+sudo pip install pexpect 
+git clone https://github.com/ArduPilot/ardupilot
+
+cd ardupilot
+git submodule update --init --recursive
+
+./Tools/environment_install/install_prereqs_ubuntu.sh -y
+```
+
+### 4. Load the `profile`
+```
+. ~/.profile (Space in between . and ~ - reload this profile if sim_vehicle not found)
+```
+
+### 5. Start the Simulator
+```
+cd ardupilot/Arducopter
+```
+
+### 6. First run to write the virtual EEPROM. After default parameters are loaded then can start simulator normally
+```
+sim_vehicle.py -w
+```
+
