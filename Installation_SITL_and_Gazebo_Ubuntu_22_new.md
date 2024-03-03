@@ -197,7 +197,7 @@ self.vehicle = connect(self.connection_string, wait_ready=True)
 
 and `disable` all the buzzer relevant line in both scripts file
 
-### Problem !
+### Step 3. Problem !
 
 When you run below script
 ```
@@ -219,8 +219,16 @@ Go to line `2690`. Change following line as follow. Here we change to `collectio
       #class Parameters(collections.MutableMapping, HasObservers): <----------- old
 2690 class Parameters(collections.abc.MutableMapping, HasObservers): <------------- new
 ```
+save and quit !
 
 I refer to this link to solve the problem
 ```
 https://itsourcecode.com/attributeerror/module-collections-has-no-attribute-mutablemapping/
 ```
+
+### Step 4. At this point you should be able to run the script
+```
+sudo python3 send_keyboard_data_to_RPI.py 
+```
+
+
