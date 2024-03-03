@@ -33,7 +33,7 @@ model
 world
 media
 ```
-Please ensure to add following line to enable the `sudo make install` copy these directories automatically into `/usr/share/gazebo-11/media`
+Please ensure to add following line in `CMakeLists.txt` to enable the `sudo make install` copy these directories automatically into `/usr/share/gazebo-11/media`
 ```
 install(DIRECTORY models DESTINATION ${GAZEBO_MODEL_PATH}/..)
 install(DIRECTORY worlds DESTINATION ${GAZEBO_MODEL_PATH}/..)
