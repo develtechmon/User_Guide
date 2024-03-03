@@ -214,3 +214,13 @@ To solve this problem go to following line and change the name respectively as f
 sudo vi /usr/local/lib/python3.10/dist-packages/dronekit/__init__.py 
 ```
 
+Go to line `2690`. Change following line as follow. Here we change to `collections.abc.MutableMapping`
+```
+      #class Parameters(collections.MutableMapping, HasObservers): <----------- old
+2690 class Parameters(collections.abc.MutableMapping, HasObservers): <------------- new
+```
+
+I refer to this link to solve the problem
+```
+https://itsourcecode.com/attributeerror/module-collections-has-no-attribute-mutablemapping/
+```
