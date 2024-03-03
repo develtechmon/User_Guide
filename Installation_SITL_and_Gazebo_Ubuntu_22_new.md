@@ -24,7 +24,10 @@ echo 'export GAZEBO_MODEL_PATH=~/ardupilot_gazebo/models' >> ~/.bashrc
 . ~/.bashrc
 ```
 ## Important !
-if you copy following file from `drone dojo` GIThub
+if you copy following file from `drone dojo` GIThub.
+
+Remember, to copy only the new files, don't overwrite the same file `name` that reside in the existing directory. For example,
+if `drone dojo` already have `iris_with_standoffs`. Don't copy this file into your existing `model`
 ```
 model
 world
@@ -36,8 +39,7 @@ install(DIRECTORY models DESTINATION ${GAZEBO_MODEL_PATH}/..)
 install(DIRECTORY worlds DESTINATION ${GAZEBO_MODEL_PATH}/..)
 install(DIRECTORY media  DESTINATION ${GAZEBO_MODEL_PATH}/..) <-------- Add media
 ```
-Remember, to copy only the new files, don't overwrite the same file `name` that reside in the existing directory. For example,
-if `drone dojo` already have `iris_with_standoffs`. Don't copy this file into your existing `world`
+
 
 ### 2. Run `Gazebo` Arducopter world
 
