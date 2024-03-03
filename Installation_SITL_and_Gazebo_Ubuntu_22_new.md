@@ -31,7 +31,6 @@ gazebo --verbose ~/ardupilot_gazebo/worlds/iris_arducopter_runway.world
 ```
 
 ## SITL Arducopter Installation
-
 For my setup, i'm using below spec:
 
 * My Ubuntu Version
@@ -110,4 +109,29 @@ cd ardupilot/Arducopter
 ```
 sim_vehicle.py -w
 ```
+
+## SITL and Gazebo Connection setup.
+
+### 1. To launch `SITL` environment using internal connection
+
+Open new terminal and run below command
+```
+cd ~/ardupilot/ArduCopter/
+sim_vehicle.py -v ArduCopter -f gazebo-iris --console
+```
+
+### 2. To launch `SITL` environment using forwarded addess from Companion Computer
+
+You can also forward RPI or Jetson Nano IP address to connect with SITL using below command
+```
+sim_vehicle.py -v ArduCopter -f gazebo-iris --console --out 192.168.195.204:14553
+```
+From companion computer run `connect_drone.py` script from Drone_kit repository to test the connection. Before run, please use below connection_string which is referring to RPI IP address
+```
+connection_string = '192.168.195.204:14553'
+```
+
+The script should output `virtual copter is ready`
+
+
 
