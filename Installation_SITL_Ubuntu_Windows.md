@@ -82,6 +82,8 @@ mavproxy.py --master=tcp:192.168.1.1:14550
 mavproxy.py --master=udp:127.0.0.1:14550
 mavproxy.py --master=tcp:0.0.0.0:14550
 
+SITL in Ubuntu Connection to test the connection internally
+mavproxy.py --master=127.0.0.1:14550
 ```
 
 ## Note
