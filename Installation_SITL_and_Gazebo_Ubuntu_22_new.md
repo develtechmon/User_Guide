@@ -11,7 +11,8 @@ Gazebo in your ros installation.
 
 Run below command and execute it by sequence.
 ```
-git clone https://github.com/khancyr/ardupilot_gazebo
+git clone https://github.com/khancyr/ardupilot_gazebo --> Original one without Aruco
+git clone  https://github.com/dronedojo/ardupilot_gazebo.git --> From drone dojo with Aruco
 cd ardupilot_gazebo
 mkdir build
 cd build
