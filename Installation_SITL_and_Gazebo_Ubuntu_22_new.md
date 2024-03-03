@@ -11,7 +11,7 @@ Gazebo in your ros installation.
 
 Run below command and execute it by sequence.
 ```
-git clone https://github.com/khancyr/ardupilot_gazebo --> Original one without Aruco
+git clone https://github.com/khancyr/ardupilot_gazebo --> Original one without Aruco file.
 git clone  https://github.com/dronedojo/ardupilot_gazebo.git --> From drone dojo with Aruco
 cd ardupilot_gazebo
 mkdir build
@@ -22,6 +22,19 @@ sudo make install
 echo 'source /usr/share/gazebo/setup.sh' >> ~/.bashrc
 echo 'export GAZEBO_MODEL_PATH=~/ardupilot_gazebo/models' >> ~/.bashrc
 . ~/.bashrc
+```
+## Important !
+if you copy following file from `dron dojo` GIThub
+```
+model
+world
+media
+```
+Please ensure to add following line to enable the `sudo make install` copy these directories automatically into `/usr/share/gazebo-11/media`
+```
+install(DIRECTORY models DESTINATION ${GAZEBO_MODEL_PATH}/..)
+install(DIRECTORY worlds DESTINATION ${GAZEBO_MODEL_PATH}/..)
+install(DIRECTORY media  DESTINATION ${GAZEBO_MODEL_PATH}/..) <-------- Add media
 ```
 
 ### 2. Run `Gazebo` Arducopter world
