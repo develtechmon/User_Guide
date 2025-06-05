@@ -32,6 +32,10 @@ sudo pip install pexpect
 sudo apt-get install python3.8-venv
 sudo apt-get install git wget flex bison gperf cmake ninja-build ccache libffi-dev libssl-dev dfu-util
 sudo apt-get install python3 python3-pip python3-setuptools
+
+python3 -m pip install empy==3.3.4
+python3 -m pip install pexpect
+python3 -m pip install future
 ```
 
 ## Part 4 : Install WAF Ardupilot
