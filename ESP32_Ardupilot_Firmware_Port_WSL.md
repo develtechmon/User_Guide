@@ -74,5 +74,4 @@ cd ../../..
 
 To create a bin for our `ESP32`, we have to modify `esp32diy.h` and `esp32buzz.h` file to match our ESP32 configuration. For this setup, i'm
 using `Node MCU ESP32 38 Pin` as follow:
-![Uploading ESP32_38_Pin.png…]()
 
