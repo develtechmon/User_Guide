@@ -467,3 +467,29 @@ cd /home/jlukas/ardupilot/build/esp32diy/esp-idf_build
 ../esp-idf_build/partition_table/partition-table.bin
 ```
 
+## Part 9 : Go to Windows and Not in WSL
+
+Open your terminal and install the following `esptool` packages to flash our file
+```
+py -3.8 -m pip install esptool
+```
+
+## Part 10 : Flash Our Bin to ESP32
+
+This is address and config of our `bin` file obtained from `flash_args`
+```
+--flash_mode dio --flash_freq 80m --flash_size 4MB
+0x1000 bootloader/bootloader.bin
+0x10000 ardupilot.bin
+0x8000 partition_table/partition-table.bin
+```
+
+Please run following command to flash our `bin` to `ESP32`. 
+```
+py -3.8 -m esptool --chip esp32 --port COM3 --baud 115200 write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\bootloader.bin 0x8000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\partition-table.bin 0x10000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\ardupilot.bin
+```
+
+## Part 11 : Connect To Mission Planner
+
+Open your `Mission Planner` and connect to port com
+
