@@ -27,6 +27,7 @@ Please copy, paste and install following packages into Linux machine:
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install git
+sudo apt-get install python3-pip
 sudo pip install pexpect 
 sudo apt-get install python3.8-venv
 sudo apt-get install git wget flex bison gperf cmake ninja-build ccache libffi-dev libssl-dev dfu-util
