@@ -78,6 +78,7 @@ using `Node MCU ESP32 38 Pin` as follow:
 https://cdn.shopify.com/s/files/1/0903/0218/5736/files/Node_MCU_ESP32_38Pin_pinout.webp?v=1735563613
 ```
 
+
 We have to modify this file which can be found at this path
 ```
 cd ardupilot/libraries/AP_HAL_ESP32/boards
