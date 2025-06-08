@@ -895,6 +895,11 @@ Please run following command to flash our `bin` to `ESP32`.
 py -3.8 -m esptool --chip esp32 --port COM3 --baud 115200 write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\bootloader.bin 0x8000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\partition-table.bin 0x10000 D:\Shared_Folder\ESP32_Ardupilot_Bin\v13\ardupilot.bin
 ```
 
+For G14
+```
+py -m esptool --chip esp32 --port COM11 --baud 115200 write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 bootloader.bin 0x8000 partition-table.bin 0x10000 ardupilot.bin
+```
+
 ## Part 11 : Connect To Mission Planner
 
 Open your `Mission Planner` and connect to port com
