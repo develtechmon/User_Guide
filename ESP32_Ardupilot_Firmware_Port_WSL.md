@@ -74,6 +74,7 @@ unset IDF_PATH
 source ./export.sh
 cd ../../..
 ```
+This is schematic for our build
 
 ## Part 6 : Configure and run the build
 
