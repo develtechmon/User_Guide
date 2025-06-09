@@ -74,6 +74,10 @@ unset IDF_PATH
 source ./export.sh
 cd ../../..
 ```
+This is `schematic` for this build
+![Screenshot from 2025-06-09 15-41-07](https://github.com/user-attachments/assets/58c32001-523d-461d-949a-f5979469268a)
+
+
 ## Part 6 : Configure and run the build
 
 To create a bin for our `ESP32`, we have to modify `esp32diy.h` and `esp32buzz.h` file to match our ESP32 GPIO configuration. For this setup, i'm
