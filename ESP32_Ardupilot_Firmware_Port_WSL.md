@@ -77,6 +77,8 @@ cd ../../..
 This is `schematic` for this build
 
 ![Screenshot from 2025-06-09 15-41-07](https://github.com/user-attachments/assets/58c32001-523d-461d-949a-f5979469268a)
+![Screenshot from 2025-06-09 15-42-41](https://github.com/user-attachments/assets/4bf6267d-d539-4d56-a40a-8e68cb7ada89)
+![Screenshot from 2025-06-09 15-43-23](https://github.com/user-attachments/assets/24767f65-a04e-41e9-be50-5ae34a287e0e)
 
 
 ## Part 6 : Configure and run the build
