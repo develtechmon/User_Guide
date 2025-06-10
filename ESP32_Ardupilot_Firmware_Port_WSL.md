@@ -646,8 +646,8 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 #define AP_FILESYSTEM_ESP32_ENABLED 0
 
 // SD Card configuration (MMC mode)
-#define HAL_ESP32_SDMMC 1
-#define HAL_ESP32_SDCARD 1
+//#define HAL_ESP32_SDMMC 1
+//#define HAL_ESP32_SDCARD 1
 
 // Disable SD card completely
 //#define HAL_ESP32_SDMMC 1
