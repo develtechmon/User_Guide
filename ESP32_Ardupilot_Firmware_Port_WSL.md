@@ -542,41 +542,53 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 
 #define HAL_ESP32_BOARD_NAME "esp32-buzz"
 
-// make sensor selection clearer
+//=============================================================================
+// SENSOR PROBE MACROS
+//=============================================================================
 #define PROBE_IMU_I2C(driver, bus, addr, args ...) ADD_BACKEND(AP_InertialSensor_ ## driver::probe(*this,GET_I2C_DEVICE(bus, addr),##args))
 #define PROBE_BARO_I2C(driver, bus, addr, args ...) ADD_BACKEND(AP_Baro_ ## driver::probe(*this,std::move(GET_I2C_DEVICE(bus, addr)),##args))
 #define PROBE_MAG_I2C(driver, bus, addr, args ...) ADD_BACKEND(DRIVER_ ##driver, AP_Compass_ ## driver::probe(GET_I2C_DEVICE(bus, addr),##args))
 
-// *** MPU6050 IMU CONFIGURATION (I2C) ***
+//=============================================================================
+// IMU CONFIGURATION - MPU6050 (I2C)
+//=============================================================================
+// Alternative orientations if needed:
+// #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 0, 0x68, ROTATION_ROLL_180)
+// #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 0, 0x68, ROTATION_YAW_90)
+
 #define HAL_INS_DEFAULT HAL_INS_INVENSENSE_I2C
 #define HAL_INS_INVENSENSE_I2C_BUS 0
 #define HAL_INS_INVENSENSE_I2C_ADDR (0x68)
 #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 0, 0x68, ROTATION_NONE)
 
-// no airspeed sensor
+//=============================================================================
+// AIRSPEED SENSOR - DISABLED
+//=============================================================================
 #define AP_AIRSPEED_MS4525_ENABLED 0
 #define AP_AIRSPEED_ENABLED 0
 #define AP_AIRSPEED_ANALOG_ENABLED 0
 #define AP_AIRSPEED_BACKEND_DEFAULT_ENABLED 0
 
-// *** BMP280 BAROMETER CONFIGURATION (I2C) ***
+//=============================================================================
+// BAROMETER CONFIGURATION - BMP280 (I2C)
+//=============================================================================
 #define HAL_BARO_DEFAULT HAL_BARO_BMP280_I2C
 #define HAL_BARO_BMP280_I2C_BUS 0
 #define HAL_BARO_BMP280_I2C_ADDR (0x76)  // or 0x77 depending on your module
 #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x76)
 
-// allow boot without a baro
+// Allow boot without barometer (for testing)
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
-// *** GY-271 QMC5883L COMPASS CONFIGURATION (I2C) ***
+//=============================================================================
+// COMPASS CONFIGURATION - GY-271 AUTO-DETECT (I2C)
+//=============================================================================
 #define AP_COMPASS_ENABLE_DEFAULT 1
-#define HAL_COMPASS_DEFAULT HAL_COMPASS_QMC5883L
-#define HAL_COMPASS_QMC5883L_I2C_BUS 0
-#define HAL_COMPASS_QMC5883L_I2C_ADDR (0x0D)
 #define HAL_PROBE_EXTERNAL_I2C_COMPASSES 1
-#define HAL_MAG_PROBE_LIST PROBE_MAG_I2C(QMC5883L, 0, 0x0D, ROTATION_NONE)
 
-// ADC configuration
+//=============================================================================
+// ADC CONFIGURATION
+//=============================================================================
 #define TRUE 1
 #define HAL_USE_ADC TRUE
 
@@ -604,72 +616,74 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 //#define WIFIDEBUG 1 //uses a lot?
 //#define INS_TIMING_DEBUG 1
 
-// WiFi configuration
+//=============================================================================
+// WIFI CONFIGURATION
+//=============================================================================
 #define HAL_ESP32_WIFI 1
+#define WIFI_SSID "ardupilot-triple"
+#define WIFI_PWD "ardupilot123"
 
-// Heap configuration
+//=============================================================================
+// SCHEDULER CONFIGURATION - 100Hz is good balance for ESP32 with I2C sensors
+//=============================================================================
+
 #ifndef ENABLE_HEAP
 #define ENABLE_HEAP 1
 #endif
 
-#define WIFI_SSID "ardupilot-triple"
-#define WIFI_PWD "ardupilot123"
-
-// *** SCHEDULER CONFIGURATION ***
-// Set main loop frequency - 100Hz is good balance for ESP32 with I2C sensors
 #define AP_SCHEDULER_DEFAULTS_MAX_LOOP_HZ 100
 #define HAL_SCHEDULER_LOOP_RATE_HZ 100
 
+//=============================================================================
+// MOTOR OUTPUT CONFIGURATION
 // Motor outputs (4 channels for quadcopter)
+//=============================================================================
 #define HAL_ESP32_RCOUT { GPIO_NUM_25, GPIO_NUM_27, GPIO_NUM_33, GPIO_NUM_32 }
 
-// *** SPI - DISABLED (using I2C sensors only) ***
+//=============================================================================
+// SPI CONFIGURATION - DISABLED
+// SPI disabled - using I2C for all sensors
+//=============================================================================
 #define HAL_ESP32_SPI_BUSES {}
 #define HAL_ESP32_SPI_DEVICES {}
 
-// *** I2C BUS CONFIGURATION ***
+//=============================================================================
+// I2C BUS CONFIGURATION
 // All three sensors share the same I2C bus
+//=============================================================================
 #define HAL_ESP32_I2C_BUSES \
 	{.port=I2C_NUM_0, .sda=GPIO_NUM_21, .scl=GPIO_NUM_22, .speed=400*KHZ, .internal=true}
 
-// RC input pin
+//=============================================================================
+// RC RECEIVER INPUT
+//=============================================================================
 #define HAL_ESP32_RCIN GPIO_NUM_4
 
-// UART configuration
+//=============================================================================
+// UART CONFIGURATION
+//=============================================================================
 #define HAL_ESP32_UART_DEVICES \
   {.port=UART_NUM_0, .rx=GPIO_NUM_3, .tx=GPIO_NUM_1 },\
   {.port=UART_NUM_1, .rx=GPIO_NUM_16, .tx=GPIO_NUM_17 }
 
 // Enable Filesystem support
-//#define AP_FILESYSTEM_ESP32_ENABLED 1
-
-// Disable filesystem support (no SD card)
-#define AP_FILESYSTEM_ESP32_ENABLED 0
+#define AP_FILESYSTEM_ESP32_ENABLED 1
 
 // SD Card configuration (MMC mode)
-//#define HAL_ESP32_SDMMC 1
-//#define HAL_ESP32_SDCARD 1
-
-// Disable SD card completely
-//#define HAL_ESP32_SDMMC 1
-//#define HAL_ESP32_SDCARD 1
-
-// Logging configuration without SD card
-#define LOGGER_MAVLINK_SUPPORT 1
+#define HAL_ESP32_SDMMC 1
 
 // No SD card logging directories needed
-//#define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
-//#define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
-//#define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
+#define HAL_ESP32_SDCARD 1
+#define LOGGER_MAVLINK_SUPPORT 1
+#define HAL_BOARD_LOG_DIRECTORY "/SDCARD/APM/LOGS"
+#define HAL_BOARD_TERRAIN_DIRECTORY "/SDCARD/APM/TERRAIN"
+#define HAL_BOARD_STORAGE_DIRECTORY "/SDCARD/APM/STORAGE"
 
 // Logging configuration - Default
 //#define HAL_LOGGING_BACKENDS_DEFAULT 1
 
 // Log backend: 2=MAVLink streaming only (no SD card)
-#define HAL_LOGGING_BACKENDS_DEFAULT 2
-
-// Enable MAVLink logging for wireless data capture
-#define HAL_LOGGING_MAVLINK_ENABLED 1
+#define HAL_LOGGING_BACKENDS_DEFAULT 1
 
 // RMT configuration
 #define HAL_ESP32_RMT_RX_PIN_NUMBER 4
