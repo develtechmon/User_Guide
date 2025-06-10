@@ -95,6 +95,7 @@ We have to modify this file which can be found at this path
 cd ardupilot/libraries/AP_HAL_ESP32/boards
 ```
 
+## For MPU6050, BMP and Compass
 This is an updated `esp32buzz.h` that work with MPU6050
 
 ```
