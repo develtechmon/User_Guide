@@ -559,7 +559,7 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 #define HAL_INS_DEFAULT HAL_INS_INVENSENSE_I2C
 #define HAL_INS_INVENSENSE_I2C_BUS 0
 #define HAL_INS_INVENSENSE_I2C_ADDR (0x68)
-#define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 0, 0x68, ROTATION_NONE)
+#define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, HAL_INS_INVENSENSE_I2C_BUS, HAL_INS_INVENSENSE_I2C_ADDR, ROTATION_YAW_270)
 
 //=============================================================================
 // AIRSPEED SENSOR - DISABLED
@@ -575,16 +575,34 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 #define HAL_BARO_DEFAULT HAL_BARO_BMP280_I2C
 #define HAL_BARO_BMP280_I2C_BUS 0
 #define HAL_BARO_BMP280_I2C_ADDR (0x76)  // or 0x77 depending on your module
-#define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 0, 0x76)
+#define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, HAL_BARO_BMP280_I2C_BUS, HAL_BARO_BMP280_I2C_ADDR)
 
 // Allow boot without barometer (for testing)
 #define HAL_BARO_ALLOW_INIT_NO_BARO 1
 
 //=============================================================================
-// COMPASS CONFIGURATION - GY-271 AUTO-DETECT (I2C)
+// COMPASS CONFIGURATION - GY-271 HMC5883L (I2C)
 //=============================================================================
 #define AP_COMPASS_ENABLE_DEFAULT 1
+#define ALLOW_ARM_NO_COMPASS
+
+// HMC5883L specific configuration - try both common addresses
+#define HAL_COMPASS_HMC5843_I2C_BUS 0
+#define HAL_COMPASS_HMC5843_I2C_ADDR (0x1E)  // Primary address for HMC5883L
+#define HAL_COMPASS_HMC5843_I2C_ADDR_ALT (0x0D)  // Alternative address
 #define HAL_PROBE_EXTERNAL_I2C_COMPASSES 1
+
+// Probe list for HMC5883L (try both addresses and both drivers)
+#define HAL_MAG_PROBE_LIST \
+    ADD_BACKEND(DRIVER_HMC5843, AP_Compass_HMC5843::probe(GET_I2C_DEVICE(HAL_COMPASS_HMC5843_I2C_BUS, HAL_COMPASS_HMC5843_I2C_ADDR), false, ROTATION_NONE)); \
+    ADD_BACKEND(DRIVER_HMC5843, AP_Compass_HMC5843::probe(GET_I2C_DEVICE(HAL_COMPASS_HMC5843_I2C_BUS, HAL_COMPASS_HMC5843_I2C_ADDR_ALT), false, ROTATION_NONE)); \
+    ADD_BACKEND(DRIVER_QMC5883L, AP_Compass_QMC5883L::probe(GET_I2C_DEVICE(HAL_COMPASS_HMC5843_I2C_BUS, HAL_COMPASS_HMC5843_I2C_ADDR), false, ROTATION_NONE)); \
+    ADD_BACKEND(DRIVER_QMC5883L, AP_Compass_QMC5883L::probe(GET_I2C_DEVICE(HAL_COMPASS_HMC5843_I2C_BUS, HAL_COMPASS_HMC5843_I2C_ADDR_ALT), false, ROTATION_NONE))
+
+// Enable specific compass backends
+#define AP_COMPASS_HMC5843_ENABLED 1
+#define AP_COMPASS_QMC5883L_ENABLED 1
+#define AP_COMPASS_BACKEND_DEFAULT_ENABLED 1
 
 //=============================================================================
 // ADC CONFIGURATION
@@ -615,12 +633,13 @@ This is `esp32buzz.h` that support `MPU6050`, `bmp280` and `compassQMC5883L` usi
 #define BUSDEBUG 1 //ok
 //#define WIFIDEBUG 1 //uses a lot?
 //#define INS_TIMING_DEBUG 1
+#define HAL_I2C_INTERNAL_DEBUG 1  // Enable I2C debugging
 
 //=============================================================================
 // WIFI CONFIGURATION
 //=============================================================================
 #define HAL_ESP32_WIFI 1
-#define WIFI_SSID "ardupilot-triple"
+#define WIFI_SSID "ardupilot123"
 #define WIFI_PWD "ardupilot123"
 
 //=============================================================================
